@@ -61,17 +61,17 @@ RSpec.describe Item, type: :model do
       it '価格が¥300より少ない時は登録できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid")
+        expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it '価格が¥10,000,000より大きい時は登録できない' do
-        @item.price = 10,000,000
+        @item.price = 10, 0o00, 0o00
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid")
+        expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it '価格は半角数値でないと登録できない' do
         @item.price = '４００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid")
+        expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it 'userが紐付いていないと保存できない' do
         @item.user = nil
@@ -80,5 +80,4 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-
 end
