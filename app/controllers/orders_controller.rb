@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
     @order_destination = OrderDestination.new(order_params)
     if @order_destination.valid?
+      @order_destination.save
       redirect_to root_path
     else
       render :index
