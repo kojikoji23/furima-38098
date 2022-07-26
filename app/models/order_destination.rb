@@ -1,9 +1,9 @@
 class OrderDestination
   include ActiveModel::Model
-  attr_accessor :zip, :prefecture_id, :city, :address, :building, :tel, :user_id, :item_id
+  attr_accessor :zip, :prefecture_id, :city, :address, :building, :tel, :user_id, :item_id, :token
 
   with_options presence: true do
-    validates :city, :address, :user_id, :item_id
+    validates :city, :address, :user_id, :item_id, :token
     validates :zip, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :tel, format: { with: /\A\d{10}$|^\d{11}\z/, message: 'is invalid' }
   end
