@@ -30,7 +30,7 @@ RSpec.describe OrderDestination, type: :model do
       it 'zipは、「3桁ハイフン4桁」の半角文字列でないと保存できないこと' do
         @order_destination.zip = '1234-123'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Zip is invalid. Include hyphen(-)")
+        expect(@order_destination.errors.full_messages).to include('Zip is invalid. Include hyphen(-)')
       end
       it 'prefectureを選択していないと保存できないこと' do
         @order_destination.prefecture_id = nil
@@ -55,12 +55,12 @@ RSpec.describe OrderDestination, type: :model do
       it 'telは10桁以上11桁以内でないと保存できないこと' do
         @order_destination.tel = '123456789'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Tel is invalid")
+        expect(@order_destination.errors.full_messages).to include('Tel is invalid')
       end
       it 'telは半角数値でないと保存できないこと' do
         @order_destination.tel = '１２３４５６７８９０'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Tel is invalid")
+        expect(@order_destination.errors.full_messages).to include('Tel is invalid')
       end
       it 'userが紐付いていないと保存できないこと' do
         @order_destination.user_id = nil
@@ -72,7 +72,7 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Item can't be blank")
       end
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_destination.token = nil
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Token can't be blank")
