@@ -5,7 +5,6 @@ RSpec.describe OrderDestination, type: :model do
     before do
       @user = FactoryBot.create(:user)
       @item = FactoryBot.build(:item)
-      @item.image = fixture_file_upload('app/assets/images/test_image.jpeg')
       @item.save
       @order_destination = FactoryBot.build(:order_destination, user_id: @user.id, item_id: @item.id)
       sleep 0.1
@@ -27,13 +26,18 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Zip can't be blank")
       end
+      it 'zipはハイフンがないと保存できないこと' do
+        @order_destination.zip = '1234567'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include('Zip is invalid. Include hyphen(-)')
+      end
       it 'zipは、「3桁ハイフン4桁」の半角文字列でないと保存できないこと' do
         @order_destination.zip = '1234-123'
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include('Zip is invalid. Include hyphen(-)')
       end
       it 'prefectureを選択していないと保存できないこと' do
-        @order_destination.prefecture_id = nil
+        @order_destination.prefecture_id = [ 1 ]
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Prefecture can't be blank")
       end

@@ -21,14 +21,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def set_order
-    @item = Item.find(params[:item_id])
-  end
-
-  def set_id
-    redirect_to root_path if !@item.order.nil?
-  end
-
   private
 
   def order_params
@@ -44,5 +36,13 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def set_order
+    @item = Item.find(params[:item_id])
+  end
+
+  def set_id
+    redirect_to root_path if !@item.order.nil?
   end
 end
